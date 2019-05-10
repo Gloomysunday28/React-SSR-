@@ -11,14 +11,6 @@ module.exports = (env, arg) => {
       filename: arg.filename,
       sourceMapFilename: '[name].[hash:8].map',
     },
-    // devServer: {
-    //   host: 'localhost',
-    //   inline: true,
-    //   hot: true,
-    //   compress: true,
-    //   open: true,
-    //   quiet: true
-    // },
     module: {
       rules: [
         {
@@ -33,7 +25,6 @@ module.exports = (env, arg) => {
         },
       ]
     }
-    // externals: [nodeExternals()],
   }
 
   if (arg.target === 'node') {

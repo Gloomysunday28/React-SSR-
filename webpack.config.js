@@ -5,7 +5,7 @@ module.exports = (env, arg) => {
   const webpackConfig = {
     mode: env,
     devtool: 'cheap-module-source-map',
-    entry: arg.target === 'node' ? `./src/react-server.js` : `./src/react-server.js`,
+    entry: arg.target === 'node' ? `./src/react-server.js` : `./src/index.js`,
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: arg.filename,

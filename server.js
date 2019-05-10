@@ -18,6 +18,8 @@ app.get('/', (req, res) => {
   `)
 })
 
-app.use(express.static('.'))
+app.use(express.static('.')) // 引入JS的根路径
 
-app.listen(3000)
+app.listen(3000, e => {
+  console.log('You start at localhost:3000')
+})

@@ -28,9 +28,9 @@ module.exports = (env, arg) => {
   }
 
   if (arg.target === 'node') {
-    webpackConfig.externals = [nodeExternals()]
-    webpackConfig.target = 'node'
-    webpackConfig.output.libraryTarget = 'commonjs2'
+    webpackConfig.externals = [nodeExternals()] // 服务端不打包第三方依赖
+    webpackConfig.target = 'node' // 不打包node原生方法
+    webpackConfig.output.libraryTarget = 'commonjs2' // node环境执行使用commonJs规范
   }
 
   return webpackConfig

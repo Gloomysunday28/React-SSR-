@@ -8,11 +8,12 @@ app.get('/', (req, res) => {
   <html>
     <head>
       <meta charset="UTF-8">
+      <link rel="stylesheet" href="/dist/main.css"/>
     </head>
     <body>
     <div id="root">${render.render()}</div>
     <!--导入 Webpack 输出的用于浏览器端渲染的 JS 文件-->
-    <script src="./dist/browser.js"></script>
+    <script src="/dist/browser.js"></script>
     </body>
     </html>
   `)

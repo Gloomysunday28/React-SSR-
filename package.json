@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --hot",
     "build:node": "webpack --env production --target node --filename node.js",
-    "build:browser": "webpack --env production --filename browser.js"
+    "build:browser": "webpack --env production --filename browser.js",
   },
   "keywords": [],
   "author": "",
@@ -18,8 +18,11 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^2.1.1",
     "express": "^4.16.4",
+    "extract-text-webpack-plugin": "^3.0.2",
     "ignore-loader": "^0.1.2",
+    "mini-css-extract-plugin": "^0.6.0",
     "webpack-node-externals": "^1.7.2"
   }
 }

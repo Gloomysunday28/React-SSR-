@@ -1,5 +1,6 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, arg) => {
   const webpackConfig = {
@@ -21,7 +22,18 @@ module.exports = (env, arg) => {
         {
           // CSS 代码不能被打包进用于服务端的代码中去，忽略掉 CSS 文件
           test: /\.css$/,
-          use: ['ignore-loader'],
+          use: arg.target === 'node' ? ['ignore-loader'] : [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // you can specify a publicPath here
+                // by default it uses publicPath in webpackOptions.output
+                // publicPath: '../',
+                hmr: process.env.NODE_ENV === 'development',
+              },
+            },
+            'css-loader',
+          ]
         },
       ]
     }
@@ -31,6 +43,10 @@ module.exports = (env, arg) => {
     webpackConfig.externals = [nodeExternals()] // 服务端不打包第三方依赖
     webpackConfig.target = 'node' // 不打包node原生方法
     webpackConfig.output.libraryTarget = 'commonjs2' // node环境执行使用commonJs规范
+  } else {
+    webpackConfig.plugins = [new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })]
   }
 
   return webpackConfig

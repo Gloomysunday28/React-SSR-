@@ -8,6 +8,7 @@
     "dev": "webpack-dev-server --hot",
     "build:node": "webpack --env production --target node --filename node.js",
     "build:browser": "webpack --env production --filename browser.js",
+    "build:ssr": "webpack --env production --target node --filename node.js && webpack --env production --filename browser.js"
   },
   "keywords": [],
   "author": "",

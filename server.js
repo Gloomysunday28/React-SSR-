@@ -2,25 +2,27 @@ const express = require('express')
 const render = require('./dist/node.js')
 
 const app = express()
+app.use(express.static('./dist')) // 引入JS的根路径
 
-app.get('/', (req, res) => {
-  res.send(`<!DOCTYPE html>
-  <html>
+app.get('*', (req, res) => {
+  const url = req.originalUrl === '/favicon.ico' ? '/' : req.originalUrl
+  const content = render.render(url)
+  
+  const htmlTemplate = `<!DOCTYPE html>
+   <html>
     <head>
       <meta charset="UTF-8">
-      <link rel="stylesheet" href="/dist/main.css"/>
+      <link rel="stylesheet" href="/main.css"/>
     </head>
     <body>
-    <div id="root">${render.render()}</div>
+    <div id="root">${content}</div>
     <!--导入 Webpack 输出的用于浏览器端渲染的 JS 文件-->
-    <script src="/dist/browser.js"></script>
+    <script src="/browser.js"></script>
     </body>
-    </html>
-  `)
+    </html>`
+
+  res.send(htmlTemplate)
 })
 
-app.use(express.static('.')) // 引入JS的根路径
 
-app.listen(3000, e => {
-  console.log('You start at localhost:3000')
-})
+app.listen(3000)

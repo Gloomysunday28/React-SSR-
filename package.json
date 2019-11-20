@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot",
+    "dev": "webpack-dev-server --port 8080 --hot",
     "build:node": "webpack --env production --target node --filename node.js",
     "build:browser": "webpack --env production --filename browser.js",
     "build:ssr": "webpack --env production --target node --filename node.js && webpack --env production --filename browser.js"

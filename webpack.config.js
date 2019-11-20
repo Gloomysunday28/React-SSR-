@@ -1,6 +1,7 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, arg) => {
   const webpackConfig = {
@@ -8,10 +9,15 @@ module.exports = (env, arg) => {
     devtool: 'cheap-module-source-map',
     entry: arg.target === 'node' ? `./src/react-server.js` : `./src/react-client.js`,
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: arg.filename,
-      sourceMapFilename: '[name].[hash:8].map',
+      path: path.resolve(__dirname, './dist'),
+      // filename: '[name].js',
+      filename: arg.filename
     },
+    // devServer: {
+    //   inline: true,
+    //   contentBase: path.resolve(__dirname, './dist'),
+    //   historyApiFallback: true,
+    // },
     module: {
       rules: [
         {
@@ -44,6 +50,14 @@ module.exports = (env, arg) => {
     webpackConfig.target = 'node' // 不打包node原生方法
     webpackConfig.output.libraryTarget = 'commonjs2' // node环境执行使用commonJs规范
   } else {
+    // webpackConfig.plugins = [new MiniCssExtractPlugin({
+    //   filename: '[name].css'
+    // }), new HTMLWebpackPlugin({
+    //   template: 'index.html',
+    //   filename: 'index.html',
+    //   inject: true
+    // })]
+
     webpackConfig.plugins = [new MiniCssExtractPlugin({
       filename: '[name].css'
     })]

@@ -1,5 +1,6 @@
 import React from 'react'
-import {Switch, Route, Router} from 'react-router'
+import { BrowserRouter } from 'react-router-dom'
+import Router from './routers'
 import './index.css'
 
 class App extends React.Component {
@@ -8,11 +9,9 @@ class App extends React.Component {
   }
   
   render() {
-    return <Router>
-      <Switch>
-        <Route exact component={() => import('./Home')}/>
-      </Switch>
-    </Router>
+    return <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   }
 }
 

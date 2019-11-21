@@ -13,11 +13,11 @@ module.exports = (env, arg) => {
       // filename: '[name].js',
       filename: arg.filename
     },
-    // devServer: {
-    //   inline: true,
-    //   contentBase: path.resolve(__dirname, './dist'),
-    //   historyApiFallback: true,
-    // },
+    devServer: {
+      inline: true,
+      contentBase: path.resolve(__dirname, './dist'),
+      historyApiFallback: true,
+    },
     module: {
       rules: [
         {
@@ -50,17 +50,17 @@ module.exports = (env, arg) => {
     webpackConfig.target = 'node' // 不打包node原生方法
     webpackConfig.output.libraryTarget = 'commonjs2' // node环境执行使用commonJs规范
   } else {
-    // webpackConfig.plugins = [new MiniCssExtractPlugin({
-    //   filename: '[name].css'
-    // }), new HTMLWebpackPlugin({
-    //   template: 'index.html',
-    //   filename: 'index.html',
-    //   inject: true
-    // })]
-
     webpackConfig.plugins = [new MiniCssExtractPlugin({
       filename: '[name].css'
+    }), new HTMLWebpackPlugin({
+      template: 'index.html',
+      filename: 'index.html',
+      inject: true
     })]
+
+    // webpackConfig.plugins = [new MiniCssExtractPlugin({
+    //   filename: '[name].css'
+    // })]
   }
 
   return webpackConfig

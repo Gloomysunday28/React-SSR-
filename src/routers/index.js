@@ -7,9 +7,11 @@ const routers = [{
   path: '/foo',
   exact: false,
   strict: false,
+  loadData: Foo.loadData,
   component: Foo,
 }]
 
+export { routers }
 
 export default function() {
   return <Switch>

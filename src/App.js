@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return <Provider store={store}>
       <BrowserRouter>
-        <Router />
+       <Router />
       </BrowserRouter>
     </Provider>
   }

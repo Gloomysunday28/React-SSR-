@@ -1,29 +1,33 @@
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { matchPath  } from 'react-router-dom'
-import { renderToString } from 'react-dom/server';
+import { renderToNodeStream } from 'react-dom/server';
 import { Provider } from 'react-redux'
-import Router, { routers } from './routers'
+import { routers, ServerRouer } from './routers'
 import './index.css'
 import store from './store'
 
-export function render(url) {
+export async function render(url) {
   const promises = [];
   // use `some` to imitate `<Switch>` behavior of selecting only
   // the first to match
   routers.some(route => {
     // use `matchPath` here
     const match = matchPath(url, route);
-    if (match) promises.push(route.loadData(store, match));
+    if (match && route.loadData) promises.push(route.loadData().then(res => {
+      res.default.loadData(store, match)
+    }))
     return match;
   });
+  
+  const ServerRouter = await ServerRouer()
 
   return new Promise((resolve) => {
     Promise.all(promises).then(() => {
       // 把根组件渲染成 HTML 字符串
       resolve({
-        content: renderToString((<Provider store={store}><StaticRouter location={url} context={{title: 'Martin'}}>
-          <Router />
+        content: renderToNodeStream((<Provider store={store}><StaticRouter location={url} context={{title: 'Martin'}}>
+          <ServerRouter />
         </StaticRouter></Provider>)),
         initialData: `<script type="text/javascript">
           window.initialData = ${JSON.stringify(store.getState())}

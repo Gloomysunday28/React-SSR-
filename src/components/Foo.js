@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useCallback} from 'react'
 import action from '../store/actions'
 import { connect } from 'react-redux'
+import style from './Foo.less'
 
 const mapStateToProps = state => {
   return {
@@ -10,25 +11,18 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getList(){
-    //调用dispatch时会自动执行getData里return的方法
     dispatch(action.getBanners())
   }
 })
 
-function Foo(props, context) {
+function Foo() {
   const [count, setCount] = useState(0)
-  useEffect(() => {
-    props.getList()
-  }, [props.list])
-
   const changeSetCount = useCallback(() => {
       setCount(count + 1)
   }, [count])
-  // console.log('props', props)/* 2019年11月21日 15时50分52秒 */
-  return <div onClick={changeSetCount}>foo-{count}
-    {props.list.map(v => {
-      return <img src={v.imageUrl} key={v.imageUrl}/>
-    })}
+
+  return <div className={style.container} onClick={changeSetCount}>
+    foo-{count}
   </div>
 }
 
